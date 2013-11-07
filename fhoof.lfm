@@ -1,0 +1,164 @@
+object Form1: TForm1
+  Left = 347
+  Height = 517
+  Top = 143
+  Width = 628
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Form1'
+  ClientHeight = 517
+  ClientWidth = 628
+  LCLVersion = '0.9.30'
+  object Label1: TLabel
+    Left = 16
+    Height = 14
+    Hint = 'Normally : C:\Document and Settings\(Username)\Local Settings\Application Data\IM\Indetitiets\(target identity)\Message Store'
+    Top = 15
+    Width = 142
+    Caption = 'Incredimail Message Store Dir'
+    ParentColor = False
+  end
+  object edtIncDir: TDirectoryEdit
+    Left = 176
+    Height = 21
+    Hint = 'Normally : C:\Document and Settings\(Username)\Local Settings\Application Data\IM\Indetitiets\(target identity)\Message Store'
+    Top = 8
+    Width = 272
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 0
+    MaxLength = 0
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 224
+    Height = 25
+    Top = 72
+    Width = 75
+    Caption = '&Convert'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 14
+    Hint = 'Where all the EML files must be dumped'
+    Top = 53
+    Width = 82
+    Caption = 'Output Directory'
+    ParentColor = False
+  end
+  object DirectoryEdit2: TDirectoryEdit
+    Left = 176
+    Height = 21
+    Hint = 'Where all the EML files must be dumped'
+    Top = 46
+    Width = 272
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 0
+    MaxLength = 0
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+  end
+  object Label3: TLabel
+    Left = 120
+    Height = 14
+    Top = 120
+    Width = 106
+    Caption = 'Incredimail DB Version'
+    ParentColor = False
+  end
+  object edtDBver: TEdit
+    Left = 240
+    Height = 21
+    Top = 113
+    Width = 80
+    Enabled = False
+    ReadOnly = True
+    TabOrder = 3
+  end
+  object prgB: TProgressBar
+    Left = 48
+    Height = 20
+    Top = 176
+    Width = 560
+    Smooth = True
+    Style = pbstMarquee
+    TabOrder = 4
+  end
+  object lblHoev: TLabel
+    Left = 296
+    Height = 14
+    Top = 207
+    Width = 17
+    Caption = '0/0'
+    ParentColor = False
+  end
+  object qryContainers: TSQLQuery
+    PacketRecords = -1
+    IndexName = 'DEFAULT_ORDER'
+    Database = sqlIncrMDB
+    Transaction = SQLTransaction1
+    ReadOnly = False
+    SQL.Strings = (
+      'select * from Containers'
+      'where ContainerID = :C_ID'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'C_ID'
+        ParamType = ptUnknown
+      end>
+    left = 520
+    top = 224
+  end
+  object sqlIncrMDB: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = SQLTransaction1
+    Options = []
+    left = 496
+    top = 16
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Action = caNone
+    Database = sqlIncrMDB
+    left = 496
+    top = 88
+  end
+  object qryHeaders: TSQLQuery
+    PacketRecords = -1
+    IndexName = 'DEFAULT_ORDER'
+    Database = sqlIncrMDB
+    Transaction = SQLTransaction1
+    ReadOnly = False
+    SQL.Strings = (
+      'select * from Headers'
+      'order by ContainerID,MsgPos'
+    )
+    Params = <>
+    left = 464
+    top = 161
+  end
+  object qryCommonData: TSQLQuery
+    PacketRecords = -1
+    IndexName = 'DEFAULT_ORDER'
+    Database = sqlIncrMDB
+    Transaction = SQLTransaction1
+    ReadOnly = False
+    SQL.Strings = (
+      'select * from CommonData'
+      'where CommonField = ''Version'''
+    )
+    Params = <>
+    left = 440
+    top = 250
+  end
+end
